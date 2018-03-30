@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Buses UTPL
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+	<ion-item>
+		<ion-input [(ngModel)]="item.nombre" ></ion-input>
+	</ion-item>
+	<button (click)="btnAgregar(item)" ion-button>Agregar</button>
+  <button ion-button (click)="goToUserPage()">Registrar</button>
+  <button ion-button (click)="goToLoginPage()">Login</button>
+  <button ion-button (click)="goToParadaPage()">Parada</button>
+	<ion-list>
+		<ion-list-header>
+			Items
+		</ion-list-header>	
+		<ion-item  *ngFor="let item of testList$ | async">
+			{{ item.nombre }}
+		</ion-item>
+	</ion-list>
+</ion-content>
