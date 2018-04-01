@@ -1,9 +1,22 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar >
+  	<ion-buttons start>
+  		<button ion-button menuToggle>
+  			<ion-icon name="menu"></ion-icon>
+  		</button>
+  	</ion-buttons>	
     <ion-title>Google Maps</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
 	<div #map id="map"></div>
-	<button ion-button full>Buscar parada</button>
+	<button ion-button full (click)="btnUbicacion()">Buscar parada</button>
+	<ion-list>
+		<ion-list-header>
+			Paradas
+		</ion-list-header>	
+		<ion-item  *ngFor="let parada of paradatList$ | async">
+			{{ parada.latitud }}, {{parada.longitud}}
+		</ion-item>
+	</ion-list>
 </ion-content>

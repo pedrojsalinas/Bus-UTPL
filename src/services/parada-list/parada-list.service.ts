@@ -10,7 +10,7 @@ export class ParadaListService {
 
 	constructor(private db: AngularFireDatabase) {}
 
-	getTestList(){
+	getParadaList(){
 		return this.paradaListRef;
 	}
 	addParada(parada:Parada){

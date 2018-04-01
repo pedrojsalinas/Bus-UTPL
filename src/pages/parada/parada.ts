@@ -22,8 +22,8 @@ export class ParadaPage {
 
   parada: Parada={
     nombre:'',
-    latitud: null,
-    longitud: null,
+    latitud: 0,
+    longitud: 0,
     direccion: ''
   };
 
@@ -52,7 +52,7 @@ export class ParadaPage {
 	btnAgregar(parada:Parada){
   	//this.fdb.list("/myItems/").push(this.myInput);
     this.paradaService.addParada(parada).then(response =>{
-    	this.toast.show(`Parada agregada!`);
+    	this.toast.show(`Parada ${parada.nombre} agregada!`);
       });
     }
 

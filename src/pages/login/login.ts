@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+  import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {Usuario} from '../../models/usuario';
@@ -41,6 +41,9 @@ export class LoginPage {
       this.toast.show(`${e}`);
       console.log(e);
   	}
+  }
+  entrar(){
+    this.navCtrl.push(MapaPage);
   }
  
 }

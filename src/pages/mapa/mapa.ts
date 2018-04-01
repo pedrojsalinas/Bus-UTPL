@@ -1,6 +1,9 @@
 import { Component,ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {Geolocation} from '@ionic-native/geolocation';
+import {Geolocation,Geoposition} from '@ionic-native/geolocation';
+import {ParadaListService} from './../../services/parada-list/parada-list.service';
+import {Parada} from '../../models/parada/parada.model'
+import { Observable } from 'rxjs/Observable';
 /*import { GoogleMaps,
 		 GoogleMap,
 		 GoogleMapsEvent,
@@ -18,16 +21,48 @@ import {Geolocation} from '@ionic-native/geolocation';
 declare var google: any;
 
 
+
 @Component({
   selector: 'page-mapa',
   templateUrl: 'mapa.html',
 })
 export class MapaPage {
+	parada :Parada={
+	    nombre:'',
+	    latitud: null,
+	    longitud: null,
+	    direccion: ''
+	  };
+	  array_name = [];
+  paradatList$: Observable<Parada[]>;
+  arrData;
+
+
 	//map: GoogleMap;
 
 	@ViewChild('map') mapRef: ElementRef;
   constructor(public navCtrl: NavController, 
-  	public geolocation: Geolocation) {
+  				public geolocation: Geolocation,
+  				private paradaService: ParadaListService) {
+
+  	this.arrData = this.paradaService.getParadaList();
+
+  	 this.paradatList$ = this.paradaService
+      .getParadaList().snapshotChanges().map(changes =>{
+        return changes.map(c => ({
+          key: c.payload.key,
+          ...c.payload.val(),
+        }));
+      });
+      
+
+      this.paradatList$.subscribe(data=>{
+      	return data;
+      });
+
+
+
+      //console.log(this.arrData);
   }
 
 
@@ -105,7 +140,7 @@ export class MapaPage {
 
   	const options = {
   		center: location,
-  		zoom: 18,
+  		zoom: 16,
   		streetViewControl: false,
   		mapTypeId: 'roadmap',
   		zoomControl: false,
@@ -114,17 +149,37 @@ export class MapaPage {
 
   	const map =  new google.maps.Map(this.mapRef.nativeElement,options);
 
-  	this.addMarker(location,map);
-  }
+  	//this.addMarker(location,map);
+  	var icon = {
+	    url: "http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png", // url
+	    scaledSize: new google.maps.Size(50, 50), // scaled size
+	    origin: new google.maps.Point(0,0), // origin
+	    anchor: new google.maps.Point(0, 0) // anchor
+				};
 
-  addMarker(position, map){
-  	return new google.maps.Marker({
-  		position,
-  		map,
-  		title: "Tu estas aqui!",
+  	const marker = new google.maps.Marker({
+  		position: location,
+  		map: map,
+  		icon: icon
+
+  	});
+
+  	const infoWindow = new google.maps.InfoWindow({
+  		content: '<h6>tu estas aqui!</h6>'
+  	});
+
+  	marker.addListener('click', function(){
+  		infoWindow.open(map, marker);
   	});
   }
 
 
+
+  btnUbicacion()
+{
+  	return new google.maps.Marker({
+  		visible: false
+  	});
+}
 
 }
