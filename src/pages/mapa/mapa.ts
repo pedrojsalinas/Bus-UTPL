@@ -4,6 +4,7 @@ import {Geolocation,Geoposition} from '@ionic-native/geolocation';
 import {ParadaListService} from './../../services/parada-list/parada-list.service';
 import {Parada} from '../../models/parada/parada.model'
 import { Observable } from 'rxjs/Observable';
+
 /*import { GoogleMaps,
 		 GoogleMap,
 		 GoogleMapsEvent,
@@ -36,6 +37,7 @@ export class MapaPage {
 	  array_name = [];
   paradatList$: Observable<Parada[]>;
   arrData;
+  users:any;
 
 
 	//map: GoogleMap;
@@ -54,11 +56,9 @@ export class MapaPage {
           ...c.payload.val(),
         }));
       });
-      
 
-      this.paradatList$.subscribe(data=>{
-      	return data;
-      });
+
+   
 
 
 
@@ -163,7 +163,27 @@ export class MapaPage {
   		icon: icon
 
   	});
+   this.paradatList$.subscribe(res=>{
+      	res.forEach(data=>{
+      			let latitude = data.latitud;
+      			console.log(data.latitud);
+      			console.log(data.longitud);
+				let longitude = data.longitud;
+			  	const location=  new google.maps.LatLng(latitude,longitude);
+			  	  	var icon = {
+	    url: "https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/13-512.png", // url
+	    scaledSize: new google.maps.Size(50, 50), // scaled size
+	    origin: new google.maps.Point(0,0), // origin
+	    anchor: new google.maps.Point(0, 0) // anchor
+				};
+      		new google.maps.Marker({
+			  		position: location,
+			  		map: map,
+			  		icon: icon
 
+			  	});
+      	});
+      });
   	const infoWindow = new google.maps.InfoWindow({
   		content: '<h6>tu estas aqui!</h6>'
   	});
