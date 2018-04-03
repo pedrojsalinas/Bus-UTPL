@@ -42,5 +42,21 @@ page-login {
         border-bottom:1px solid white;
         box-shadow:none;
     }
-
+    .btn_login{
+        margin-top: 15px;height: 35px;font-size: 14px;background: #10ABF4;
+    }
+    .forgot{
+        text-decoration: underline;
+        margin-top:20px;color:white;
+        font-size: 14px;
+    }
+    .btn_entrar{
+        background-color: #10ABF4;
+        color:white;
+        border-color:white;
+        border:1px solid white;
+        margin-top:20px;
+        height: 35px;
+        font-size: 14px;
+    }
 }

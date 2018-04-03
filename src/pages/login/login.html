@@ -19,7 +19,8 @@
 		</ion-item>
 
 	</ion-list>
-
-		<button ion-button (click)="loginCorreo(usuario)">Login</button>
-		<button ion-button (click)="entrar()">Entrar</button>
+	<button class="btn_login" ion-button block (click)="loginCorreo(usuario)">Login</button>
+	<div text-center class="forgot" (click)="forgotPwd()">Forgot Password</div>
+	<!-- Cambiar el boton por el de registrar despues-->  
+  	<button class="btn_entrar" ion-button block (click)="entrar()">Entrar</button>
 </ion-content>

@@ -25,7 +25,7 @@ export class MyApp {
     });
   }
   openPage(pagina:any){
-
+    
     this.rootPage = pagina;
     this.menuCtrl.close();
   }
