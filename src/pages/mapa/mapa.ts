@@ -165,24 +165,31 @@ export class MapaPage {
       		new google.maps.Marker({
 			  		position: location,
 			  		map: map,
-			  		icon: icon
+						icon: icon,
+						draggable: true,
+          	animation: google.maps.Animation.DROP
 
 			  	});
       	});
       });
   	const infoWindow = new google.maps.InfoWindow({
-  		content: '<h6>tu estas aqui!</h6>'
+			content: '<div><p style="color:blue; font-weight:bold">Tu estas aqui!</p></div>',
   	});
 
   	marker.addListener('click', function(){
-  		infoWindow.open(map, marker);
-  	});
-  }
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			infoWindow.open(map, marker);
+			if (marker.getAnimation() !== null) {
+				marker.setAnimation(null);
+			} else {
+				marker.setAnimation(google.maps.Animation.BOUNCE);
+			}
 
-
-
-  btnUbicacion()
-{
+		});
+	}
+	
+	
+  btnUbicacion(){
   	return new google.maps.Marker({
   		visible: false
   	});
