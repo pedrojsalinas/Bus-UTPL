@@ -219,7 +219,8 @@ export class MapaPage {
   	
 
   	const map =  new google.maps.Map(this.mapRef.nativeElement,options);
-		
+		const trafficLayer = new google.maps.TrafficLayer();
+		trafficLayer.setMap(map);
   	//this.addMarker(location,map);
   	var icon = {
 	    url: "http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png", // url
