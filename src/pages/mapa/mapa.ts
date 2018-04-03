@@ -176,12 +176,19 @@ export class MapaPage {
 	    origin: new google.maps.Point(0,0), // origin
 	    anchor: new google.maps.Point(0, 0) // anchor
 				};
-      		new google.maps.Marker({
+      		const marker = new google.maps.Marker({
 			  		position: location,
 			  		map: map,
 			  		icon: icon
 
 			  	});
+      		  	const infoWindow = new google.maps.InfoWindow({
+			  		content: '<h6>'+data.nombre+'</h6>'
+			  	});
+
+  	marker.addListener('click', function(){
+  		infoWindow.open(map, marker);
+  	});
       	});
       });
   	const infoWindow = new google.maps.InfoWindow({
