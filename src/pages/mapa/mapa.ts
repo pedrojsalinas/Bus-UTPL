@@ -213,7 +213,7 @@ export class MapaPage {
 				streetViewControl: false,
 				mapTypeId: 'roadmap',
 				zoomControl: false,
-				disableDefaultUI: true
+				//disableDefaultUI: true
 			}
 		}
   	
