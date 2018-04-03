@@ -2,7 +2,9 @@ import { Component,ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {Geolocation,Geoposition} from '@ionic-native/geolocation';
 import {ParadaListService} from './../../services/parada-list/parada-list.service';
-import {Parada} from '../../models/parada/parada.model'
+import {BusListService} from './../../services/bus-list/bus-list.service';
+import {Parada} from '../../models/parada/parada.model';
+import {Bus} from '../../models/bus/bus.model';
 import {TabsPage} from '../../pages/tabs/tabs';
 import { Observable } from 'rxjs/Observable';
 
@@ -24,8 +26,14 @@ export class MapaPage {
 	    longitud: null,
 	    direccion: ''
 	  };
+	  bus : Bus={
+	  	nro_bus: '',
+	  	latitud: '',
+	  	longitud: '',
+	  };
 	  array_name = [];
   paradatList$: Observable<Parada[]>;
+  busList$: Observable<Bus[]>;
   arrData;
   users:any;
 
@@ -35,7 +43,8 @@ export class MapaPage {
 	@ViewChild('map') mapRef: ElementRef;
   constructor(public navCtrl: NavController, 
   				public geolocation: Geolocation,
-  				private paradaService: ParadaListService) {
+  				private paradaService: ParadaListService,
+  				private busService: BusListService) {
 		
   	this.arrData = this.paradaService.getParadaList();
 
@@ -46,61 +55,19 @@ export class MapaPage {
           ...c.payload.val(),
         }));
       });
+        	 this.busList$ = this.busService
+      .getBusList().snapshotChanges().map(changes =>{
+        return changes.map(c => ({
+          key: c.payload.key,
+          ...c.payload.val(),
+        }));
+      });
   }
+
   ionViewDidLoad() {
 	this.getPosition();
-	//this.geolocationNative();
-  }
- /*
-  geolocationNative(){
-  	this.geolocation.getCurrentPosition().then((geoposition: Geoposition) =>{
-  		//console.log(geoposition.coords.latitude);
-  		const lon=geoposition.coords.latitude;
-  		return geoposition.coords.longitude;
-  
-  		//this.loadMap();
-  	})
   }
 
- loadMap() {
-
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: 43.0741904,
-          lng: -89.3809802
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    };
-
-    this.map = GoogleMaps.create('map_canvas', mapOptions);
-
-    // Wait the MAP_READY before using any methods.
-    this.map.one(GoogleMapsEvent.MAP_READY)
-      .then(() => {
-        console.log('Map is ready!');
-
-        // Now you can use all methods safely.
-        this.map.addMarker({
-            title: 'Ionic',
-            icon: 'blue',
-            animation: 'DROP',
-            position: {
-              lat: 43.0741904,
-              lng: -89.3809802
-            }
-          })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });
-
-      });
-  }*/
     getPosition():any{
 	    this.geolocation.getCurrentPosition()
 	    .then(response => {
@@ -235,11 +202,35 @@ export class MapaPage {
   		icon: icon
 
   	});
+  	this.busList$.subscribe(res=>{
+      	res.forEach(data=>{
+      			let latitude = data.latitud;
+				let longitude = data.longitud;
+				console.log(latitude);
+			  	const location=  new google.maps.LatLng(latitude,longitude);
+
+      		const marker = new google.maps.Marker({
+			  		position: location,
+			  		map: map,
+						icon: 'assets/imgs/bus.png',
+						draggable: true,
+						animation: google.maps.Animation.DROP
+						
+
+			  	});
+      		  	const infoWindow = new google.maps.InfoWindow({
+			  		content: '<h6>BUS'+data.nro_bus+'</h6>'
+			  	});
+
+  	marker.addListener('click', function(){
+  		infoWindow.open(map, marker);
+  	});
+      	});
+      });
+
    this.paradatList$.subscribe(res=>{
       	res.forEach(data=>{
       			let latitude = data.latitud;
-      			console.log(data.latitud);
-      			console.log(data.longitud);
 				let longitude = data.longitud;
 			  	const location=  new google.maps.LatLng(latitude,longitude);
 			  	  	var icon = {

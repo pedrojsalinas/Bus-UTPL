@@ -19,6 +19,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { TestListService } from '../services/test-list/test-list.service';
 import { ParadaListService } from '../services/parada-list/parada-list.service';
+import {BusListService} from '../services/bus-list/bus-list.service';
 import { ToastService } from '../services/toast/toast.service';
 
 import {Geolocation} from '@ionic-native/geolocation';
@@ -66,6 +67,7 @@ import {Geolocation} from '@ionic-native/geolocation';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TestListService,
     ParadaListService,
+    BusListService,
     ToastService,
     Geolocation,
     //GoogleMaps
