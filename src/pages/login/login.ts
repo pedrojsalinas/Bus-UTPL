@@ -3,18 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {Usuario} from '../../models/usuario';
 import { MapaPage } from '../mapa/mapa';
+import { TabsPage } from '../tabs/tabs';
 import {ToastService} from './../../services/toast/toast.service';
-
-
-
-
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -43,7 +33,9 @@ export class LoginPage {
   	}
   }
   entrar(){
-    this.navCtrl.push(MapaPage);
+    console.log("enr");
+    this.navCtrl.setRoot(TabsPage);
+    console.log("Fins");
   }
  
 }

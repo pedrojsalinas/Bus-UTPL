@@ -3,31 +3,17 @@ import { NavController } from 'ionic-angular';
 import {Geolocation,Geoposition} from '@ionic-native/geolocation';
 import {ParadaListService} from './../../services/parada-list/parada-list.service';
 import {Parada} from '../../models/parada/parada.model'
+import {TabsPage} from '../../pages/tabs/tabs';
 import { Observable } from 'rxjs/Observable';
 
-/*import { GoogleMaps,
-		 GoogleMap,
-		 GoogleMapsEvent,
-		 GoogleMapOptions,
-		 CameraPosition,
-		 MarkerOptions,
-		 Marker} from '@ionic-native/google-maps';
-
-/**
- * Generated class for the MapaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 declare var google: any;
-
-
 
 @Component({
   selector: 'page-mapa',
   templateUrl: 'mapa.html',
 })
 export class MapaPage {
+
 	parada :Parada={
 	    nombre:'',
 	    latitud: null,
