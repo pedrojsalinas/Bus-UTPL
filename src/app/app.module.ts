@@ -10,7 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { MapaPage } from '../pages/mapa/mapa';
 import { ParadaPage } from '../pages/parada/parada';
-import { MenuPage } from '../pages/menu/menu';
+import { TabsPage } from "../pages/tabs/tabs";
 //instalar modulo firebase
 //npm install angularfire2@4.0.0-rc0 firebase --save
 //firebase module
@@ -41,7 +41,7 @@ import {Geolocation} from '@ionic-native/geolocation';
     RegisterPage,
     MapaPage,
     ParadaPage,
-    MenuPage
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +58,7 @@ import {Geolocation} from '@ionic-native/geolocation';
     RegisterPage,
     MapaPage,
     ParadaPage,
-    MenuPage
+    TabsPage
   ],
   providers: [
     StatusBar,

@@ -3,31 +3,21 @@ import { NavController } from 'ionic-angular';
 import {Geolocation,Geoposition} from '@ionic-native/geolocation';
 import {ParadaListService} from './../../services/parada-list/parada-list.service';
 import {Parada} from '../../models/parada/parada.model'
+import {TabsPage} from '../../pages/tabs/tabs';
 import { Observable } from 'rxjs/Observable';
 
-/*import { GoogleMaps,
-		 GoogleMap,
-		 GoogleMapsEvent,
-		 GoogleMapOptions,
-		 CameraPosition,
-		 MarkerOptions,
-		 Marker} from '@ionic-native/google-maps';
 
-/**
- * Generated class for the MapaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+/**Obtener la hgora */
+////
 declare var google: any;
-
-
 
 @Component({
   selector: 'page-mapa',
   templateUrl: 'mapa.html',
 })
 export class MapaPage {
+	today = new Date(Date.now());
+
 	parada :Parada={
 	    nombre:'',
 	    latitud: null,
@@ -46,7 +36,7 @@ export class MapaPage {
   constructor(public navCtrl: NavController, 
   				public geolocation: Geolocation,
   				private paradaService: ParadaListService) {
-
+		
   	this.arrData = this.paradaService.getParadaList();
 
   	 this.paradatList$ = this.paradaService
@@ -56,23 +46,11 @@ export class MapaPage {
           ...c.payload.val(),
         }));
       });
-
-
-   
-
-
-
-      //console.log(this.arrData);
   }
-
-
-
   ionViewDidLoad() {
 	this.getPosition();
 	//this.geolocationNative();
   }
-
-
  /*
   geolocationNative(){
   	this.geolocation.getCurrentPosition().then((geoposition: Geoposition) =>{
@@ -136,19 +114,112 @@ export class MapaPage {
 	let latitude = position.coords.latitude;
 	let longitude = position.coords.longitude;
   	const location=  new google.maps.LatLng(latitude,longitude);
-
-
-  	const options = {
-  		center: location,
-  		zoom: 16,
-  		streetViewControl: false,
-  		mapTypeId: 'roadmap',
-  		zoomControl: false,
-
-  	}
+		let options = {};
+		if(this.today.getHours()>=18 || this.today.getHours()<=6 ){
+			console.log("es de ncohe");
+			options ={
+				center: location,
+				zoom: 16,
+				streetViewControl: false,
+				mapTypeId: 'roadmap',
+				zoomControl: false,
+				disableDefaultUI: true,
+				styles: [
+					{elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+					{elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+					{elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+					{
+						featureType: 'administrative.locality',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#d59563'}]
+					},
+					{
+						featureType: 'poi',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#d59563'}]
+					},
+					{
+						featureType: 'poi.park',
+						elementType: 'geometry',
+						stylers: [{color: '#263c3f'}]
+					},
+					{
+						featureType: 'poi.park',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#6b9a76'}]
+					},
+					{
+						featureType: 'road',
+						elementType: 'geometry',
+						stylers: [{color: '#38414e'}]
+					},
+					{
+						featureType: 'road',
+						elementType: 'geometry.stroke',
+						stylers: [{color: '#212a37'}]
+					},
+					{
+						featureType: 'road',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#9ca5b3'}]
+					},
+					{
+						featureType: 'road.highway',
+						elementType: 'geometry',
+						stylers: [{color: '#746855'}]
+					},
+					{
+						featureType: 'road.highway',
+						elementType: 'geometry.stroke',
+						stylers: [{color: '#1f2835'}]
+					},
+					{
+						featureType: 'road.highway',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#f3d19c'}]
+					},
+					{
+						featureType: 'transit',
+						elementType: 'geometry',
+						stylers: [{color: '#2f3948'}]
+					},
+					{
+						featureType: 'transit.station',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#d59563'}]
+					},
+					{
+						featureType: 'water',
+						elementType: 'geometry',
+						stylers: [{color: '#17263c'}]
+					},
+					{
+						featureType: 'water',
+						elementType: 'labels.text.fill',
+						stylers: [{color: '#515c6d'}]
+					},
+					{
+						featureType: 'water',
+						elementType: 'labels.text.stroke',
+						stylers: [{color: '#17263c'}]
+					}
+				]
+			}
+		}else if(this.today.getHours()>=7 || this.today.getHours()<=17){	
+			console.log("Es de dia");
+			options ={
+				center: location,
+				zoom: 16,
+				streetViewControl: false,
+				mapTypeId: 'roadmap',
+				zoomControl: false,
+				disableDefaultUI: true
+			}
+		}
+  	
 
   	const map =  new google.maps.Map(this.mapRef.nativeElement,options);
-
+		
   	//this.addMarker(location,map);
   	var icon = {
 	    url: "http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png", // url
@@ -179,7 +250,10 @@ export class MapaPage {
       		const marker = new google.maps.Marker({
 			  		position: location,
 			  		map: map,
-			  		icon: icon
+						icon: icon,
+						draggable: true,
+						animation: google.maps.Animation.DROP
+						
 
 			  	});
       		  	const infoWindow = new google.maps.InfoWindow({
@@ -192,18 +266,23 @@ export class MapaPage {
       	});
       });
   	const infoWindow = new google.maps.InfoWindow({
-  		content: '<h6>tu estas aqui!</h6>'
+			content: '<div><p style="color:blue; font-weight:bold">Tu estas aqui!</p></div>',
   	});
 
   	marker.addListener('click', function(){
-  		infoWindow.open(map, marker);
-  	});
-  }
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+			infoWindow.open(map, marker);
+			if (marker.getAnimation() !== null) {
+				marker.setAnimation(null);
+			} else {
+				marker.setAnimation(google.maps.Animation.BOUNCE);
+			}
 
-
-
-  btnUbicacion()
-{
+		});
+	}
+	
+	
+  btnUbicacion(){
   	return new google.maps.Marker({
   		visible: false
   	});
