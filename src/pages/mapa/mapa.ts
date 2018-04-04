@@ -36,6 +36,8 @@ export class MapaPage {
   busList$: Observable<Bus[]>;
   arrData;
   users:any;
+  markers = [];
+
 
 
 	//map: GoogleMap;
@@ -207,9 +209,11 @@ export class MapaPage {
       			let latitude = data.latitud;
 				let longitude = data.longitud;
 				console.log(latitude);
-			  	const location=  new google.maps.LatLng(latitude,longitude);
+	      		this.deleteMarkers();
 
-      		const marker = new google.maps.Marker({
+			  	const location=  new google.maps.LatLng(latitude,longitude);
+			  	this.addMarker(location,map);
+     /*const marker = new google.maps.Marker({
 			  		position: location,
 			  		map: map,
 						icon: 'assets/imgs/bus.png',
@@ -217,7 +221,7 @@ export class MapaPage {
 						animation: google.maps.Animation.DROP
 						
 
-			  	});
+			  	});*/
       		  	const infoWindow = new google.maps.InfoWindow({
 			  		content: '<h6>BUS'+data.nro_bus+'</h6>'
 			  	});
@@ -272,6 +276,34 @@ export class MapaPage {
 
 		});
 	}
+
+	  addMarker(location, map) {
+    let marker = new google.maps.Marker({
+			  		position: location,
+			  		map: map,
+						icon: 'assets/imgs/bus.png',
+						draggable: true,
+						animation: google.maps.Animation.DROP
+						
+
+			  	});
+    this.markers.push(marker);
+  }
+  
+	setMapOnAll(map) {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  }
+  
+  clearMarkers() {
+    this.setMapOnAll(null);
+  }
+  
+  deleteMarkers() {
+    this.clearMarkers();
+    this.markers = [];
+  }
 	
 	
   btnUbicacion(){
