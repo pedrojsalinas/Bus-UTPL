@@ -6,13 +6,4 @@
 <ion-content>
 	<input id="pac-input" class="controls" type="text" placeholder="Buscar Paradas">
 	<div #map id="map"></div>
-	<button ion-button full (click)="btnUbicacion()">Buscar paradas</button>
-	<ion-list>
-		<ion-list-header>
-			Paradas
-		</ion-list-header>	
-		<ion-item  *ngFor="let parada of paradatList$ | async">
-			{{ parada.latitud }}, {{parada.longitud}}
-		</ion-item>
-	</ion-list>
 </ion-content>

@@ -84,7 +84,6 @@ export class MapaPage {
   	const location=  new google.maps.LatLng(latitude,longitude);
 		let options = {};
 		if(this.today.getHours()>=18 || this.today.getHours()<=6 ){
-			console.log("es de ncohe");
 			options ={
 				center: location,
 				zoom: 16,
@@ -174,7 +173,6 @@ export class MapaPage {
 				]
 			}
 		}else if(this.today.getHours()>=7 || this.today.getHours()<=17){	
-			console.log("Es de dia");
 			options ={
 				center: location,
 				zoom: 16,
@@ -221,13 +219,7 @@ export class MapaPage {
 						
 
 			  	});*/
-      		  	const infoWindow = new google.maps.InfoWindow({
-			  		content: '<h6>BUS'+data.nro_bus+'</h6>'
-			  	});
-      		  	//falta desplegar la info del bus cuando se selecciona el bus
-			  	marker.addListener('click', function(){
-			  		infoWindow.open(map, marker);
-			  	});
+
 			      	});
       });
 
@@ -277,7 +269,7 @@ export class MapaPage {
 	}
 
 	  addMarker(location, map) {
-    let marker = new google.maps.Marker({
+	    let marker = new google.maps.Marker({
 			  		position: location,
 			  		map: map,
 						icon: 'assets/imgs/bus.png',
@@ -286,7 +278,14 @@ export class MapaPage {
 						
 
 			  	});
-    this.markers.push(marker);
+          		  	const infoWindow = new google.maps.InfoWindow({
+			  		content: '<h6>BUS</h6>'
+			  	});
+      		  	//falta desplegar la info del bus cuando se selecciona el bus
+			  	marker.addListener('click', function(){
+			  		infoWindow.open(map, marker);
+			  	});
+			    this.markers.push(marker);
   }
   
 	setMapOnAll(map) {
