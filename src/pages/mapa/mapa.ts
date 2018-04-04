@@ -225,11 +225,11 @@ export class MapaPage {
       		  	const infoWindow = new google.maps.InfoWindow({
 			  		content: '<h6>BUS'+data.nro_bus+'</h6>'
 			  	});
-
-  	marker.addListener('click', function(){
-  		infoWindow.open(map, marker);
-  	});
-      	});
+      		  	//falta desplegar la info del bus cuando se selecciona el bus
+			  	marker.addListener('click', function(){
+			  		infoWindow.open(map, marker);
+			  	});
+			      	});
       });
 
    this.paradatList$.subscribe(res=>{
