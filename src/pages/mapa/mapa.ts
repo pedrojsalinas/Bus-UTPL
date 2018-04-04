@@ -5,7 +5,6 @@ import {ParadaListService} from './../../services/parada-list/parada-list.servic
 import {BusListService} from './../../services/bus-list/bus-list.service';
 import {Parada} from '../../models/parada/parada.model';
 import {Bus} from '../../models/bus/bus.model';
-import {TabsPage} from '../../pages/tabs/tabs';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -182,7 +181,7 @@ export class MapaPage {
 				streetViewControl: false,
 				mapTypeId: 'roadmap',
 				zoomControl: false,
-				disableDefaultUI: true
+				//disableDefaultUI: true
 			}
 		}
   	

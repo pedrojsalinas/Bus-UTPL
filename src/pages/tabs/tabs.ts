@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
 import { MapaPage } from '../../pages/mapa/mapa';
 import { ParadaPage } from '../../pages/parada/parada';
 //import { TabsPage } from "../../pages/tabs/tabs";
