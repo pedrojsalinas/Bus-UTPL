@@ -6,7 +6,7 @@ import {BusListService} from './../../services/bus-list/bus-list.service';
 import {Parada} from '../../models/parada/parada.model';
 import {Bus} from '../../models/bus/bus.model';
 import { Observable } from 'rxjs/Observable';
-
+import { ModalController } from 'ionic-angular';
 
 /**Obtener la hgora */
 ////
@@ -45,7 +45,8 @@ export class MapaPage {
   constructor(public navCtrl: NavController, 
   				public geolocation: Geolocation,
   				private paradaService: ParadaListService,
-  				private busService: BusListService) {
+  				private busService: BusListService,
+  				public modalCtrl: ModalController) {
 		
   	this.arrData = this.paradaService.getParadaList();
 
