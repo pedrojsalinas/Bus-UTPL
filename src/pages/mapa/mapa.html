@@ -6,4 +6,7 @@
 <ion-content>
 	<input id="pac-input" class="controls" type="text" placeholder="Buscar Paradas">
 	<div #map id="map"></div>
+	<ion-fab bottom right>
+	  <button ion-fab mini bottom (click)="btnLocalizar()"><ion-icon name="locate"></ion-icon></button>
+	</ion-fab>
 </ion-content>

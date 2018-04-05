@@ -18,7 +18,6 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
   async loginCorreo(usuario: Usuario){
   	try{
@@ -29,13 +28,10 @@ export class LoginPage {
                 }  
     }catch(e){
       this.toast.show(`${e}`);
-      console.log(e);
   	}
   }
   entrar(){
-    console.log("enr");
     this.navCtrl.setRoot(TabsPage);
-    console.log("Fins");
   }
  
 }

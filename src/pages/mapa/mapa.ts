@@ -69,6 +69,7 @@ export class MapaPage {
 	this.getPosition();
   }
 
+
     getPosition():any{
 	    this.geolocation.getCurrentPosition()
 	    .then(response => {
@@ -77,6 +78,9 @@ export class MapaPage {
 	    .catch(error =>{
 	      console.log(error);
 	    })
+  }
+  btnLocalizar(){
+		this.getPosition();
   }
   showMap(position: Geoposition){
 	let latitude = position.coords.latitude;
@@ -205,7 +209,7 @@ export class MapaPage {
       	res.forEach(data=>{
       			let latitude = data.latitud;
 				let longitude = data.longitud;
-				console.log(latitude);
+				console.log(data.key);
 	      		this.deleteMarkers();
 
 			  	const location=  new google.maps.LatLng(latitude,longitude);
