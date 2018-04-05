@@ -1,11 +1,16 @@
 <ion-header >
-  <ion-navbar *navbar transparent>
+  <ion-navbar *nav  transparent>
     <ion-title>Localizador</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
-	<ion-fab>
-		<input id="pac-input" class="controls" type="text" placeholder="Buscar Paradas">
+	<ion-fab  >
+		<ion-list class="buscar"  >
+			<ion-item center>
+			
+				<ion-input type="text" placeholder="Buscar Paradas" ></ion-input>
+			</ion-item>
+		</ion-list>
 	</ion-fab>
 	<div #map id="map"></div>
 	<ion-fab bottom right>

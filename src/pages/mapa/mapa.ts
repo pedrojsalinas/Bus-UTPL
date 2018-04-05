@@ -283,7 +283,7 @@ export class MapaPage {
 
 			  	});
           		  	const infoWindow = new google.maps.InfoWindow({
-			  		content: '<h6>BUS</h6>'
+			  		content: '<h6>BUS</h6> <a href="google.com">horario</a>'
 			  	});
       		  	//falta desplegar la info del bus cuando se selecciona el bus
 			  	marker.addListener('click', function(){
