@@ -21,6 +21,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { TestListService } from '../services/test-list/test-list.service';
 import { ParadaListService } from '../services/parada-list/parada-list.service';
 import {BusListService} from '../services/bus-list/bus-list.service';
+import {HorarioListService} from '../services/horario-list/horario-list.service';
 import { ToastService } from '../services/toast/toast.service';
 
 import {Geolocation} from '@ionic-native/geolocation';
@@ -72,6 +73,7 @@ import {Geolocation} from '@ionic-native/geolocation';
     ParadaListService,
     BusListService,
     ToastService,
+    HorarioListService,
     Geolocation,
     //GoogleMaps
   ]

@@ -28,12 +28,9 @@ export class ParadasPage {
   constructor(public navCtrl: NavController, 
   			public navParams: NavParams,
   			private paradaService: ParadaListService) {
-
- 
-          this.paradatList$ = this.paradaService
-      .getParadaList()
-      .snapshotChanges()
-      .map(changes =>{
+  	
+  	 this.paradatList$ = this.paradaService
+      .getParadaList().snapshotChanges().map(changes =>{
         return changes.map(c => ({
           key: c.payload.key,
           ...c.payload.val(),
@@ -42,7 +39,6 @@ export class ParadasPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ParadasPage');
   }
 
 }

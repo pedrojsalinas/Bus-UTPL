@@ -13,15 +13,15 @@
 </ion-header>
 
 
-<ion-content padding>
-	<ion-input type="text" placeholder="Buscar..."></ion-input>
-	<ion-card *ngFor="let item of paradatList$ | async">
-	  <ion-card-header>
-	    {{item.nombre}}
-	  </ion-card-header>
-	  <ion-card-content>
-	    {{item.direccion}}
-	  </ion-card-content>
-	</ion-card>
-		
+<ion-content>
+	<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+	<ion-list>
+		<ion-list-header>
+			Paradas
+		</ion-list-header>		
+		<ion-item *ngFor="let item of paradatList$ | async" detail-push navPush="HorariosPage" [navParams]="{item:item}">
+			{{item.nombre}}		
+		</ion-item>
+	</ion-list>
 </ion-content>

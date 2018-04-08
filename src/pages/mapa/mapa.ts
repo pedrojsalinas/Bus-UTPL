@@ -210,7 +210,6 @@ export class MapaPage {
       	res.forEach(data=>{
       			let latitude = data.latitud;
 				let longitude = data.longitud;
-				console.log(data.key);
 	      		this.deleteMarkers();
 
 			  	const location=  new google.maps.LatLng(latitude,longitude);
@@ -243,7 +242,7 @@ export class MapaPage {
 			  		position: location,
 			  		map: map,
 						icon: icon,
-						draggable: true,
+						draggable: false,
 						animation: google.maps.Animation.DROP
 						
 
